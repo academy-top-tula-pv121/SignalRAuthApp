@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 using Microsoft.AspNetCore.SignalR;
 
 namespace SignalRAuthApp
@@ -8,6 +10,10 @@ namespace SignalRAuthApp
     {
         public async Task Send(string username, string message)
         {
+            var userCurrent = Context.User;
+            var userNaqmeCurrent = userCurrent?.Identity?.Name;
+            var userRoleCurrent = userCurrent?.FindFirst(ClaimTypes.Role)?.Value;
+
             await Clients.All.SendAsync("Receive", username, message);
         }
 

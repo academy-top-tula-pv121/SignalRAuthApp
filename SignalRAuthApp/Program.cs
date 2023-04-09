@@ -32,7 +32,7 @@ var users = new List<User>()
 
 app.MapGet("/login", async context => await SendHtmlAsync(context, "html/login.html"));
 
-app.MapPost("/login", async (string redirectUrl, HttpContext context) =>
+app.MapPost("/login", async (string? redirectUrl, HttpContext context) =>
 {
     var form = context.Request.Form;
 
