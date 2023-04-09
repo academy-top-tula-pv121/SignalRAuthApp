@@ -23,7 +23,34 @@
 
     <script src="js\microsoft\signalr\dist\browser\signalr.min.js"></script>
     <script>
-        let connection = new signalR.HubConnectionBuilder
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        document.getElementById("send").addEventListener("click", () => {
+            let username = document.getElementById("username").value;
+            let message = document.getElementById("message").value;
+
+            connection.invoke("Send", username, message)
+                .catch(error => console.error(error));
+        });
+
+        connection.On("Receive", (username, message) => {
+            let usernameElement = document.createElement("strong");
+            usernameElement.textContent = `${username}: `;
+
+            let messageElement = document.createElement("p");
+            messageElement.appendChild(usernameElement);
+            messageElement.appendChild(document.createTextNode(message));
+
+            let firstMessage = document.getElementById("chatroom").firstChild;
+            let chatroom = document.getElementById("chatroom");
+            chatroom.insertBefore(messageElement, firstMessage);
+        });
+
+        connection.start()
+            .then(() => document.getElementById("send").disabled = false)
+            .catch((error) => console.error(error));
     </script>
 </body>
 </html>
