@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chat</title>
+</head>
+<body>
+    <h2></h2>
+    <p><a href="logout">Log out</a></p>
+    <div id="userchat">
+        <p>
+            User name:<br />
+            <input id="username" />
+        </p>
+        <p>
+            Message:<br />
+            <input id="message" />
+        </p>
+        <input type="button" id="send" value="Send" />
+    </div>
+
+    <div id="chatroom"></div>
+
+    <script src="js\microsoft\signalr\dist\browser\signalr.min.js"></script>
+    <script>
+        let connection = new signalR.HubConnectionBuilder
+    </script>
+</body>
+</html>
